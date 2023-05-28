@@ -78,4 +78,10 @@ const handleSubmit = async (e) => {
     loader(messageDiv);
 }
 
-f
+form.addEventListener('submit', handleSubmit);
+form.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+        handleSubmit(e);
+    }
+}
+)
