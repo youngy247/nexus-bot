@@ -76,6 +76,18 @@ const handleSubmit = async (e) => {
     const messageDiv = document.getElementById(uniqueId);
 
     loader(messageDiv);
+
+    // fetch data from server -> bot's response
+
+    const response = await fetch('http://localhost:5000', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            prompt: data.get('prompt')
+        })
+    })
 }
 
 form.addEventListener('submit', handleSubmit);
