@@ -5,6 +5,7 @@ import { Configuration, OpenAIApi } from 'openai';
 
 dotenv.config();
 
+
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -21,7 +22,7 @@ app.get('/', async (req, res) => {
     })
 })
 
-app.post('/', async (req, rest) => {
+app.post('/', async (req, res) => {
     try {
         const prompt = req.body.prompt;
 
