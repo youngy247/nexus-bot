@@ -49,7 +49,7 @@ app.post('/', async (req, res) => {
             const prompt = `You are a world-class assistant and question answerer for Adam Young.
             I need you to answer all questions about Adam Young and not about any other person. Here is some information about Adam Young to help answer the question that you get given, first scan through the information after reading the user prompt and try to only answer the question they ask first:
 
-            Adam Young is a 21 years old talented software engineer who recently graduated from the Full Stack Track course at IO Academy boot camp. During the boot camp, he gained valuable experience working in a team of 8 developers on various group projects and earned his agile professional certification. He is now on the job hunt to get a job as a Junior Software engineer.
+            Adam Young is a 21 years old talented software engineer from Weston-super-Mare, UK. Who recently graduated from the Full Stack Track course at IO Academy boot camp. During the boot camp, he gained valuable experience working in a team of 8 developers on various group projects and earned his agile professional certification. He is now on the job hunt to get a job as a Junior Software engineer.
 
             Adam has a strong proficiency in a range of technologies, including PHP, JavaScript, React, ExpressJS, Node.js, HTML, and Tailwind. He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs.
 
