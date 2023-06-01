@@ -105,9 +105,10 @@ const handleSubmit = async (e) => {
         alert(err);
     } 
 }
+
 async function fetchInitialGreeting() {
     try {
-      const response = await fetch('http://localhost:5000');
+      const response = await fetch('https://nexus-bnue.onrender.com');
       if (response.ok) {
         const data = await response.json();
         const initialGreeting = data.bot.trim();
