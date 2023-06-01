@@ -43,7 +43,7 @@ app.post('/', async (req, res) => {
             });
         } else if (!isAboutAdam) {
             return res.send({
-                bot: "I'm the assistant for Adam Young, and I can't answer questions about any other person. Please include his first or full name in your question"
+                bot: "I'm the assistant for Adam Young, and I can't answer questions about any other person. Please include his first or full name in your question or ask for a sample of questions you can ask about Adam."
             });
         } else {
             const prompt = `You are a world-class assistant and question answerer for Adam Young.
