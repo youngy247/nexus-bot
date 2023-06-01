@@ -16,11 +16,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-    res.status(200).send({
-        message: 'Hello from Nexus',
-    })
-})
+app.get('/', async (_, res) => {
+    try {
+        res.status(200).send({
+            bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering."
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error });
+    }
+});
+
 
 app.post('/', async (req, res) => {
     try {
@@ -33,7 +39,7 @@ app.post('/', async (req, res) => {
         if (userPrompt === "") {
             // Greet the user when there is no user prompt
             return res.send({
-                bot: "Welcome to Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering."
+                bot: "Hi there! How can I help you?"
             });
         } else if (!isAboutAdam) {
             return res.send({
