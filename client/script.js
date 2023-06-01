@@ -79,7 +79,7 @@ const handleSubmit = async (e) => {
 
     // fetch data from server -> bot's response
 
-    const response = await fetch('https://nexus-bnue.onrender.com', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -105,6 +105,26 @@ const handleSubmit = async (e) => {
         alert(err);
     } 
 }
+async function fetchInitialGreeting() {
+    try {
+      const response = await fetch('http://localhost:5000');
+      if (response.ok) {
+        const data = await response.json();
+        const initialGreeting = data.bot.trim();
+        const uniqueId = generateUniqueId();
+        chatContainer.innerHTML += chatStripe(true, "", uniqueId);
+        const messageDiv = document.getElementById(uniqueId);
+        typeText(messageDiv, initialGreeting);
+      } else {
+        throw new Error('Failed to fetch initial greeting from the server');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  // Call the fetchInitialGreeting function when the page loads
+  window.addEventListener('DOMContentLoaded', fetchInitialGreeting);
 
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keydown', (e) => {
