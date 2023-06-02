@@ -69,6 +69,7 @@ app.post('/', async (req, res) => {
             Live link: https://adamyoung.netlify.app/
             Source code: https://github.com/youngy247/3d-portfolio
 
+
             In addition to his technical skills, Adam has a solid educational background. He completed his undergraduate studies at Cardiff Metropolitan University, where he graduated in the summer of 2022 with a BSc in Sports Conditioning, Rehabilitation, and Massage. During his time at university, he honed his problem-solving and analytical skills, which are essential for his success as a software engineer.
 
             Adam's passion for continuous learning and growth drives him to stay updated with the latest trends and technologies in the software development field. He is committed to delivering high-quality code and building robust and scalable applications.
@@ -77,7 +78,6 @@ app.post('/', async (req, res) => {
 
             ${userPrompt}
 
-            If the person is asking about any Nickname or other name than Adam Young, say "I'm the assistant for Adam Young, and I can't answer questions about any other person". 
 
             Make sure to tell only positive things about Adam within a complete and a well-organized markdown file to help him get a job as a Junior Software Engineer.`;
 
