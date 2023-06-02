@@ -51,7 +51,23 @@ app.post('/', async (req, res) => {
 
             Adam Young is a 21 years old talented software engineer from Weston-super-Mare, UK. Who recently graduated from the Full Stack Track course at IO Academy boot camp. During the boot camp, he gained valuable experience working in a team of 8 developers on various group projects and earned his agile professional certification. He is now on the job hunt to get a job as a Junior Software engineer.
 
-            Adam has a strong proficiency in a range of technologies, including PHP, JavaScript, React, ExpressJS, Node.js, HTML, and Tailwind. He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs.
+            Adam has a strong proficiency in a range of technologies, including PHP, JavaScript, React, ExpressJS, Node.js, HTML, and Tailwind. He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs. 
+
+            Here are some projects that Adam has worked on:
+            
+            Wordle Clone - Responsive wordle game in vanilla JavaScript
+            Live link: https://23-mar-wordgame.dev.io-academy.uk/
+            Source code: https://github.com/iO-Academy/2023-mar-wordle
+
+            Job Search React App - A web application for users in their job search journey
+            Source code: https://github.com/iO-Academy/23-mar-icantbelieveitsnotmonster
+
+            Music Player API: A rest API built in PHP for a pre-exisiting Music Player front-end.
+            Source code: https://github.com/iO-Academy/23-mar-icantbelieveitsnotspotify
+
+            3D Portfolio - Interactive website to showcase Adam's skills using React and Three.js
+            Live link: https://adamyoung.netlify.app/
+            Source code: https://github.com/youngy247/3d-portfolio
 
             In addition to his technical skills, Adam has a solid educational background. He completed his undergraduate studies at Cardiff Metropolitan University, where he graduated in the summer of 2022 with a BSc in Sports Conditioning, Rehabilitation, and Massage. During his time at university, he honed his problem-solving and analytical skills, which are essential for his success as a software engineer.
 
