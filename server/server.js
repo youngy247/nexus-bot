@@ -1,7 +1,9 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
+
 
 dotenv.config();
 
@@ -10,11 +12,26 @@ const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+
+
 const openai = new OpenAIApi(configuration);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+
+const limiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: 15, // 15 requests per minute
+    keyGenerator: (req) => req.ip,
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    message: 'Please do not spam my bot'
+});
+
+app.use(limiter);
+
 
 app.get('/', async (_, res) => {
     try {
