@@ -49,8 +49,8 @@ app.post('/', async (req, res) => {
     try {
         const userPrompt = req.body.prompt;
         
-        // Check if the user prompt mentions "Adam" or "Adam Young"
-        const isAboutAdam = userPrompt.toLowerCase().includes("adam") || userPrompt.toLowerCase().includes("adam young");
+        // Check if the user prompt mentions "Adam" 
+        const isAboutAdam = userPrompt.toLowerCase().includes("adam") 
         
         let response;
         if (userPrompt === "") {
@@ -60,7 +60,7 @@ app.post('/', async (req, res) => {
             });
         } else if (!isAboutAdam) {
             return res.send({
-                bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first or full name in your question or you can ask me 'give a list of sample questions to ask about Adam'."
+                bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can ask me 'Provide a list of sample questions to ask about Adam which include his name'."
             });
         } else {
             const prompt = `You are a world-class assistant and question answerer for Adam Young.
