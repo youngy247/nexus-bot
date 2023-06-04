@@ -79,10 +79,11 @@ const handleSubmit = async (e) => {
 
     // fetch data from server -> bot's response
 
-    const response = await fetch('https://nexus-bnue.onrender.com', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'text/html'
         },
         body: JSON.stringify({
             prompt: data.get('prompt')
@@ -96,19 +97,20 @@ const handleSubmit = async (e) => {
         const data = await response.json();
         const parsedData = data.bot.trim();
 
-        typeText(messageDiv, parsedData);
+        // typeText(messageDiv, parsedData);
+        messageDiv.innerHTML = parsedData
     } else {
         const err = await response.text()
 
         messageDiv.innerHTML = "Something went wrong";
 
-        alert(err);
+        console.log(err);
     } 
 }
 
 async function fetchInitialGreeting() {
     try {
-      const response = await fetch('https://nexus-bnue.onrender.com');
+      const response = await fetch('http://localhost:5000');
       if (response.ok) {
         const data = await response.json();
         const initialGreeting = data.bot.trim();
