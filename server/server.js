@@ -93,10 +93,10 @@ app.post('/', async (req, res) => {
   
         projects.forEach(project => {
             if (project.liveLink) {
-              project.liveLink = `<a href="${project.liveLink}">${project.liveLink}</a>`;
+              project.liveLink = `<a href="${project.liveLink}" target="_blank">${project.liveLink}</a>`;
             }
             if (project.sourceCodeLink) {
-              project.sourceCodeLink = `<a href="${project.sourceCodeLink}">${project.sourceCodeLink}</a>`;
+              project.sourceCodeLink = `<a href="${project.sourceCodeLink}" target="_blank">${project.sourceCodeLink}</a>`;
             }
           });
     
@@ -151,8 +151,10 @@ app.post('/', async (req, res) => {
           presence_penalty: 0,
         });
       }
-  
-      const formattedResponse = marked(response.data.choices[0].text)
+
+     
+    const formattedResponse = marked(response.data.choices[0].text);
+    
 
       res.status(200).send({
         bot: formattedResponse,
