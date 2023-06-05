@@ -1,5 +1,6 @@
 import bot from './assets/bot.svg';
 import user from  './assets/user.svg';
+import DOMPurify from 'dompurify';
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
@@ -19,17 +20,20 @@ function loader(element) {
 }
 
 function typeText(element, text) {
-    let index = 0;
-
-    let interval = setInterval(() => {
-        if(index < text.length) {
-            element.innerHTML += text.charAt(index);
-            index++;
-        } else {
-            clearInterval(interval);
-        }
-    }, 20)
+  let index = 0;
+  let interval = setInterval(() => {
+    if (index < text.length) {
+      setTimeout(() => {
+        element.innerHTML = ''; // Clear the innerHTML before appending each character
+        element.innerHTML += text.substring(0, index + 1);
+        index++;
+      }, 10);
+    } else {
+      clearInterval(interval);
+    }
+  }, 20);
 }
+  
 
 function generateUniqueId() {
     const timestamp = Date.now();
@@ -79,11 +83,10 @@ const handleSubmit = async (e) => {
 
     // fetch data from server -> bot's response
 
-    const response = await fetch('http://localhost:5000', {
+    const response = await fetch('https://nexus-bnue.onrender.com', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'text/html'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             prompt: data.get('prompt')
@@ -95,10 +98,12 @@ const handleSubmit = async (e) => {
 
     if(response.ok) {
         const data = await response.json();
-        const parsedData = data.bot.trim();
+        const parsedData = DOMPurify.sanitize(data.bot.trim()); // Sanitize the bot's response
 
-        // typeText(messageDiv, parsedData);
-        messageDiv.innerHTML = parsedData
+        // messageDiv.innerHTML = parsedData;
+
+        typeText(messageDiv, parsedData)
+
     } else {
         const err = await response.text()
 
@@ -110,7 +115,7 @@ const handleSubmit = async (e) => {
 
 async function fetchInitialGreeting() {
     try {
-      const response = await fetch('http://localhost:5000');
+      const response = await fetch('https://nexus-bnue.onrender.com');
       if (response.ok) {
         const data = await response.json();
         const initialGreeting = data.bot.trim();
