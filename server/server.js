@@ -152,8 +152,12 @@ app.post('/', async (req, res) => {
         });
       }
 
-     
-    const formattedResponse = marked(response.data.choices[0].text);
+      const markedOptions = {
+        mangle: false,
+        headerIds: false
+    };
+    
+    const formattedResponse = marked(response.data.choices[0].text, markedOptions);
     
 
       res.status(200).send({
