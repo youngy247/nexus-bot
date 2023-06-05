@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "dompurify": "^3.0.3"
   }
 }
