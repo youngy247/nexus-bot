@@ -24,7 +24,7 @@ function typeText(element, text) {
   let interval = setInterval(() => {
     if (index < text.length) {
       setTimeout(() => {
-        if (text[index] === '<' && ['a'].includes(text[index + 1])) {
+        if (text[index] === '<' && ['a','h'].includes(text[index + 1])) {
           console.log('a tag got triggered')
           const closingIndex = findClosingTagIndex(text, index);
           element.innerHTML = text.substring(0, closingIndex);
@@ -39,12 +39,12 @@ function typeText(element, text) {
     } else {
       clearInterval(interval);
     }
-  }, 10);
+  }, 15);
 }
 
 function findClosingTagIndex(inputString, startIndex) {
   // Ensuring that we start at a valid <a> tag
-  if (inputString.substr(startIndex, 2) !== "<a") {
+  if (inputString.substr(startIndex, 2) !== "<a" && inputString.substr(startIndex, 2) !== "<h") {
       throw new Error("startIndex does not point to an <a> tag.");
   }
 
@@ -116,7 +116,7 @@ const handleSubmit = async (e) => {
 
     // fetch data from server -> bot's response
 
-    const response = await fetch('https://nexus-bnue.onrender.com', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ const handleSubmit = async (e) => {
 
 async function fetchInitialGreeting() {
     try {
-      const response = await fetch('https://nexus-bnue.onrender.com');
+      const response = await fetch('http://localhost:5000');
       if (response.ok) {
         const data = await response.json();
         const initialGreeting = data.bot.trim();
