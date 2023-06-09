@@ -104,7 +104,7 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: "Hi there! How can I help you?",
         });
-      } else if (isAboutProjects){
+      } else if (isAboutProjects && isAboutAdam){
         return res.send({
           bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`
         })
