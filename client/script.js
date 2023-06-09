@@ -24,15 +24,48 @@ function typeText(element, text) {
   let interval = setInterval(() => {
     if (index < text.length) {
       setTimeout(() => {
-        element.innerHTML = ''; // Clear the innerHTML before appending each character
-        element.innerHTML += text.substring(0, index + 1);
+        if (text[index] === '<' && ['a'].includes(text[index + 1])) {
+          console.log('a tag got triggered')
+          const closingIndex = findClosingTagIndex(text, index);
+          element.innerHTML = text.substring(0, closingIndex);
+      
+          const indexIncrease = closingIndex - index + 1;
+          index += indexIncrease
+      } else {
+        element.innerHTML = text.substring(0, index + 1);
         index++;
+      }
       }, 10);
     } else {
       clearInterval(interval);
     }
-  }, 20);
+  }, 10);
 }
+
+function findClosingTagIndex(inputString, startIndex) {
+  // Ensuring that we start at a valid <a> tag
+  if (inputString.substr(startIndex, 2) !== "<a") {
+      throw new Error("startIndex does not point to an <a> tag.");
+  }
+
+  // Initialize a counter to keep track of '>' characters
+  let gtCounter = 0;
+
+  for (let i = startIndex; i < inputString.length; i++) {
+      if (inputString[i] === '>') {
+          gtCounter++;
+      }
+
+      // If we've found the second '>', return its index
+      if (gtCounter === 2) {
+          return i;
+      }
+  }
+
+  // If we didn't find two '>' characters, the string is not well-formed HTML
+  throw new Error("The input string does not contain well-formed HTML.");
+}
+
   
 
 function generateUniqueId() {
@@ -86,7 +119,8 @@ const handleSubmit = async (e) => {
     const response = await fetch('https://nexus-bnue.onrender.com', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'text/html'
         },
         body: JSON.stringify({
             prompt: data.get('prompt')
