@@ -1,6 +1,5 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
-import {marked} from 'marked';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
@@ -151,13 +150,8 @@ app.post('/', async (req, res) => {
           presence_penalty: 0,
         });
       }
-
-      const markedOptions = {
-        mangle: false,
-        headerIds: false
-    };
     
-    const formattedResponse = marked(response.data.choices[0].text, markedOptions);
+    const formattedResponse = response.data.choices[0].text;
     
 
       res.status(200).send({
