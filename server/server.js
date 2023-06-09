@@ -51,6 +51,52 @@ app.post('/', async (req, res) => {
   
       // Check if the user prompt mentions "Adam" 
       const isAboutAdam = userPrompt.toLowerCase().includes("adam");
+      const isAboutProjects =  userPrompt.toLowerCase().includes("project")
+
+      // Projects object and formatting html
+      const projects = [
+        {
+          name: 'Wordle Clone',
+          description: 'Responsive wordle game in vanilla JavaScript',
+          liveLink: 'https://23-mar-wordgame.dev.io-academy.uk/',
+          sourceCodeLink: 'https://github.com/iO-Academy/2023-mar-wordle',
+        },
+        {
+          name: 'Job Search React App',
+          description: 'A web application for users in their job search journey',
+          liveLink: null,
+          sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotmonster',
+        },
+        {
+          name: 'Music Player API',
+          description: 'A REST API built in PHP for a pre-existing Music Player front-end.',
+          liveLink: null,
+          sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotspotify',
+        },
+        {
+          name: '3D Portfolio',
+          description: "Interactive website to showcase Adam's skills using React and Three.js",
+          liveLink: 'https://adamyoung.netlify.app/',
+          sourceCodeLink: 'https://github.com/youngy247/3d-portfolio',
+        },
+      ];
+
+      projects.forEach(project => {
+          if (project.liveLink) {
+            project.liveLink = `<a href="${project.liveLink}" target="_blank">${project.liveLink}</a>`;
+          }
+          if (project.sourceCodeLink) {
+            project.sourceCodeLink = `<a href="${project.sourceCodeLink}" target="_blank">${project.sourceCodeLink}</a>`;
+          }
+        });
+  
+  
+        const projectList = projects
+              .map(
+              project =>
+              ` \n${project.name}: ${project.description}\n  - Live link: ${project.liveLink || 'N/A'}\n  - Source code: ${project.sourceCodeLink || 'N/A'}`
+          )
+          .join('\n\n');
   
       let response;
       if (userPrompt === "") {
@@ -58,54 +104,19 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: "Hi there! How can I help you?",
         });
-      } else if (!isAboutAdam) {
+      } else if (isAboutProjects){
+        return res.send({
+          bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`
+        })
+
+      }
+      
+      else if (!isAboutAdam) {
         return res.send({
           bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can ask me 'Provide a list of sample questions to ask about Adam which include his name'.",
         });
       } else {
-        const projects = [
-          {
-            name: 'Wordle Clone',
-            description: 'Responsive wordle game in vanilla JavaScript',
-            liveLink: 'https://23-mar-wordgame.dev.io-academy.uk/',
-            sourceCodeLink: 'https://github.com/iO-Academy/2023-mar-wordle',
-          },
-          {
-            name: 'Job Search React App',
-            description: 'A web application for users in their job search journey',
-            liveLink: null,
-            sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotmonster',
-          },
-          {
-            name: 'Music Player API',
-            description: 'A REST API built in PHP for a pre-existing Music Player front-end.',
-            liveLink: null,
-            sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotspotify',
-          },
-          {
-            name: '3D Portfolio',
-            description: "Interactive website to showcase Adam's skills using React and Three.js",
-            liveLink: 'https://adamyoung.netlify.app/',
-            sourceCodeLink: 'https://github.com/youngy247/3d-portfolio',
-          },
-        ];
-  
-        projects.forEach(project => {
-            if (project.liveLink) {
-              project.liveLink = `<a href="${project.liveLink}" target="_blank">${project.liveLink}</a>`;
-            }
-            if (project.sourceCodeLink) {
-              project.sourceCodeLink = `<a href="${project.sourceCodeLink}" target="_blank">${project.sourceCodeLink}</a>`;
-            }
-          });
-    
-    
-          const projectList = projects
-                .map(
-                project =>
-                `- ${project.name}: ${project.description}\n  - Live link: ${project.liveLink || 'N/A'}\n  - Source code: ${project.sourceCodeLink || 'N/A'}`
-            )
-            .join('\n\n');
+        
         
   
         const prompt = `You are a world-class assistant and question answerer for Adam Young.
