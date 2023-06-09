@@ -152,3 +152,18 @@ form img {
 textarea {
   resize: none; 
 }
+
+a {
+  color: #2280f1; /* Set the default text color */
+  text-decoration: none; /* Remove the default underline */
+}
+
+a:hover, a:visited:hover {
+  color: green; /* Change the text color on hover */
+  text-decoration: underline; /* Add underline on hover */
+}
+
+a:visited {
+  color: #7964d9d7
+}
+
