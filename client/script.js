@@ -25,7 +25,6 @@ function typeText(element, text) {
     if (index < text.length) {
       setTimeout(() => {
         if (text[index] === '<' && ['a','h'].includes(text[index + 1])) {
-          console.log('a tag got triggered')
           const closingIndex = findClosingTagIndex(text, index);
           element.innerHTML = text.substring(0, closingIndex);
       
@@ -127,16 +126,26 @@ const handleSubmit = async (e) => {
         })
     })
 
+    const customPolicy = {
+      ALLOWED_TAGS: ['a', 'p', 'h2', 'ul', 'li'],
+      ALLOWED_ATTR: ['href', 'target'],
+      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
+      ADD_ATTR: [['target', '_blank']],
+    };
+
+    function sanitizeHTML(html) {
+      return DOMPurify.sanitize(html, { ADD_TAGS: ['a'], ADD_ATTR: ['target'], ...customPolicy });
+    }
+
     clearInterval(loadInterval);
     messageDiv.innerHTML = '';
 
     if(response.ok) {
         const data = await response.json();
-        const parsedData = DOMPurify.sanitize(data.bot.trim()); // Sanitize the bot's response
+        const parsedData = data.bot.trim(); // Sanitize the bot's response
+        const sanitizedResponse = sanitizeHTML(parsedData);
 
-        // messageDiv.innerHTML = parsedData;
-
-        typeText(messageDiv, parsedData)
+        typeText(messageDiv, sanitizedResponse)
 
     } else {
         const err = await response.text()
