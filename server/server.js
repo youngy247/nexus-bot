@@ -154,11 +154,11 @@ app.post('/', async (req, res) => {
         response = await openai.createCompletion({
           model: "text-davinci-003",
           prompt,
-          temperature: 0,
-          max_tokens: 3000,
+          temperature: 0.4,
+          max_tokens: 1000,
           top_p: 1,
           frequency_penalty: 0.5,
-          presence_penalty: 0,
+          presence_penalty: 0.4,
         });
       }
     
