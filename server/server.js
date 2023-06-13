@@ -64,13 +64,13 @@ app.post('/', async (req, res) => {
         {
           name: 'Job Search React App',
           description: 'A web application for users in their job search journey',
-          liveLink: null,
+          liveLink: 'https://23-mar-icantbelieveitsnotmonster.netlify.app/',
           sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotmonster',
         },
         {
           name: 'Music Player API',
           description: 'A REST API built in PHP for a pre-existing Music Player front-end.',
-          liveLink: null,
+          liveLink: 'https://23-mar-icantbelieveitsnotspotify.netlify.app/',
           sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotspotify',
         },
         {
