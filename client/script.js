@@ -108,7 +108,7 @@ function generateSuggestionButtons(suggestions) {
   suggestionContainer.innerHTML = '';
 
   const customLabels = {
-    'Provide a list of sample questions to ask about Adam which include his first name': 'Ask sample questions',
+    'Provide a list of sample questions to ask about Adam': 'Ask sample questions',
     'Can you provide a picture of Adam Young?': 'Picture of Adam',
     'Show me the projects that Adam has done so far': "Adam's Projects"
   };
