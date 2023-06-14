@@ -167,3 +167,15 @@ a:visited {
   color: #7964d9d7
 }
 
+.grad-pic {
+  width: 60%;
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .grad-pic {
+    max-width: 100%;
+  }
+}
+
+
