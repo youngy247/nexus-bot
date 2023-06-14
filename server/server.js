@@ -113,7 +113,7 @@ app.post('/', async (req, res) => {
         })
       } else if (isAboutPicture && isAboutAdam){
         return res.send({
-          bot: `<h2>Here is a picture of Adam from on graduation day:</h2> ${adamPicture}`
+          bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`
         })
       }
       
