@@ -38,7 +38,7 @@ app.get('/', async (_, res) => {
         res.status(200).send({
             bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering.",
             suggestions: [
-              "Provide a list of sample questions to ask about Adam which include his first name", 
+              "Provide a list of sample questions to ask about Adam", 
               "Can you provide a picture of Adam Young?",
               "Show me the projects that Adam has done so far",
           ]
@@ -58,6 +58,7 @@ app.post('/', async (req, res) => {
       const isAboutAdam = userPrompt.toLowerCase().includes("adam");
       const isAboutProjects =  userPrompt.toLowerCase().includes("project")
       const isAboutPicture = userPrompt.toLowerCase().includes("picture")
+      const isAboutSampleQuestions = userPrompt.toLowerCase().includes("sample questions")
 
       // Projects object and formatting html
       const projects = [
@@ -111,13 +112,17 @@ app.post('/', async (req, res) => {
         // Greet the user when there is no user prompt
         return res.send({
           bot: "Hi there! How can I help you?",
-          suggestions: ["Provide a list of sample questions to ask about Adam which include his first name", "Can you provide a picture of Adam Young?"],
+          suggestions: [
+            "Provide a list of sample questions to ask about Adam", 
+            "Can you provide a picture of Adam Young?",
+            "Show me the projects that Adam has done so far",
+          ]
         });
       } else if (isAboutProjects && isAboutAdam){
         return res.send({
           bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`,
           suggestions: [
-            "Provide a list of sample questions to ask about Adam which include his first name",
+            "Provide a list of sample questions to ask about Adam",
             "Can you provide a picture of Adam Young?"
           ],
         })
@@ -125,9 +130,24 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`,
           suggestions: [
-            "Provide a list of sample questions to ask about Adam which include his first name",
+            "Provide a list of sample questions to ask about Adam",
             "Show me the projects that Adam has done so far",
         ],
+        })
+      } else if (isAboutSampleQuestions && isAboutAdam){
+        return res.send({
+          bot: `Sample questions about Adam Young: 
+
+        1) What are Adam's skills and technologies expertise?
+        2) Can you provide more details about Adam Young's experience at IO Academy boot camp?
+        3) What are Adam's hobbies and interests outside of work?
+        4) How does Adam Young stay updated with the latest trends in software development?
+        5) What certifications has Adam Young earned?
+        `,
+                suggestions: [
+                  "Can you provide a picture of Adam Young?",
+                  "Show me the projects that Adam has done so far",
+              ],
         })
       }
       
@@ -135,7 +155,7 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can use the suggestion buttons below.",
           suggestions: [
-            "Provide a list of sample questions to ask about Adam which include his first name", 
+            "Provide a list of sample questions to ask about Adam", 
             "Can you provide a picture of Adam Young?",
             "Show me the projects that Adam has done so far",
           ],
@@ -155,10 +175,12 @@ app.post('/', async (req, res) => {
   
               Skills:
               - Adam has a strong proficiency in technologies like PHP, JavaScript, React, ExpressJS, Node.js, HTML, and Tailwind.
+              - Experienced hosting using Netlify, Render and Azure
+              - Utilised PHPUnit and Jest for testing
               - He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs.
   
               Projects:
-              ${projectList}
+              Wordle Clone game in vanilla JavaScript, Job Search React App, Music Player API, interactive 3D Portfolio using React and ThreeJS
 
               Picture of Adam:
               ${adamPicture}
@@ -196,7 +218,7 @@ app.post('/', async (req, res) => {
       res.status(200).send({
         bot: formattedResponse,
         suggestions: [
-          "Provide a list of sample questions to ask about Adam which include his first name", 
+          "Provide a list of sample questions to ask about Adam", 
           "Can you provide a picture of Adam Young?",
           "Show me the projects that Adam has done so far",
         ],
