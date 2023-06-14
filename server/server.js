@@ -36,7 +36,12 @@ app.use(limiter);
 app.get('/', async (_, res) => {
     try {
         res.status(200).send({
-            bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering."
+            bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering.",
+            suggestions: [
+              "Provide a list of sample questions to ask about Adam which include his first name", 
+              "Can you provide a picture of Adam Young?",
+              "Show me the projects that Adam has done so far",
+          ]
         });
     } catch (error) {
         console.log(error);
@@ -106,20 +111,34 @@ app.post('/', async (req, res) => {
         // Greet the user when there is no user prompt
         return res.send({
           bot: "Hi there! How can I help you?",
+          suggestions: ["Provide a list of sample questions to ask about Adam which include his first name", "Can you provide a picture of Adam Young?"],
         });
       } else if (isAboutProjects && isAboutAdam){
         return res.send({
-          bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`
+          bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`,
+          suggestions: [
+            "Provide a list of sample questions to ask about Adam which include his first name",
+            "Can you provide a picture of Adam Young?"
+          ],
         })
       } else if (isAboutPicture && isAboutAdam){
         return res.send({
-          bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`
+          bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`,
+          suggestions: [
+            "Provide a list of sample questions to ask about Adam which include his first name",
+            "Show me the projects that Adam has done so far",
+        ],
         })
       }
       
       else if (!isAboutAdam) {
         return res.send({
-          bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can ask me 'Provide a list of sample questions to ask about Adam which include his name'.",
+          bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can use the suggestion buttons below.",
+          suggestions: [
+            "Provide a list of sample questions to ask about Adam which include his first name", 
+            "Can you provide a picture of Adam Young?",
+            "Show me the projects that Adam has done so far",
+          ],
         });
       } else {
         
@@ -140,6 +159,9 @@ app.post('/', async (req, res) => {
   
               Projects:
               ${projectList}
+
+              Picture of Adam:
+              ${adamPicture}
   
               Education:
               - Adam completed his undergraduate studies at Cardiff Metropolitan University, graduating in the summer of 2022 with a BSc in Sports Conditioning, Rehabilitation, and Massage. 
@@ -173,6 +195,11 @@ app.post('/', async (req, res) => {
 
       res.status(200).send({
         bot: formattedResponse,
+        suggestions: [
+          "Provide a list of sample questions to ask about Adam which include his first name", 
+          "Can you provide a picture of Adam Young?",
+          "Show me the projects that Adam has done so far",
+        ],
       });
     } catch (error) {
       console.log(error);
