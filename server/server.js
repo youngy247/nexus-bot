@@ -52,6 +52,7 @@ app.post('/', async (req, res) => {
       // Check if the user prompt mentions "Adam" 
       const isAboutAdam = userPrompt.toLowerCase().includes("adam");
       const isAboutProjects =  userPrompt.toLowerCase().includes("project")
+      const isAboutPicture = userPrompt.toLowerCase().includes("picture")
 
       // Projects object and formatting html
       const projects = [
@@ -97,6 +98,8 @@ app.post('/', async (req, res) => {
               ` \n${project.name}: ${project.description}\n  - Live link: ${project.liveLink || 'N/A'}\n  - Source code: ${project.sourceCodeLink || 'N/A'}`
           )
           .join('\n\n');
+
+          const adamPicture = ` \n<img src="grad-pic.jpeg" alt="Adam's graduation picture"/>`
   
       let response;
       if (userPrompt === "") {
@@ -108,7 +111,10 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`
         })
-
+      } else if (isAboutPicture && isAboutAdam){
+        return res.send({
+          bot: `<h2>Here is a picture of Adam from on graduation day:</h2> ${adamPicture}`
+        })
       }
       
       else if (!isAboutAdam) {
