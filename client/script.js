@@ -21,10 +21,20 @@ function loader(element) {
 
 function typeText(element, text) {
   let index = 0;
+  let instantRender = false;
+
+  if (text.includes('<img')) {
+    instantRender = true;
+  }
+
   let interval = setInterval(() => {
     if (index < text.length) {
       setTimeout(() => {
-        if (text[index] === '<' && ['a','h'].includes(text[index + 1])) {
+        if (instantRender) {
+          // Render the entire text instantly if an <img> tag is found
+          element.innerHTML = text;
+          clearInterval(interval);
+        } else if (text[index] === '<' && ['a','h',].includes(text[index + 1])) {
           const closingIndex = findClosingTagIndex(text, index);
           element.innerHTML = text.substring(0, closingIndex);
       
