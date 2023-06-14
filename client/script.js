@@ -21,10 +21,20 @@ function loader(element) {
 
 function typeText(element, text) {
   let index = 0;
+  let instantRender = false;
+
+  if (text.includes('<img')) {
+    instantRender = true;
+  }
+
   let interval = setInterval(() => {
     if (index < text.length) {
       setTimeout(() => {
-        if (text[index] === '<' && ['a','h'].includes(text[index + 1])) {
+        if (instantRender) {
+          // Render the entire text instantly if an <img> tag is found
+          element.innerHTML = text;
+          clearInterval(interval);
+        } else if (text[index] === '<' && ['a','h',].includes(text[index + 1])) {
           const closingIndex = findClosingTagIndex(text, index);
           element.innerHTML = text.substring(0, closingIndex);
       
@@ -127,8 +137,8 @@ const handleSubmit = async (e) => {
     })
 
     const customPolicy = {
-      ALLOWED_TAGS: ['a', 'p', 'h2', 'ul', 'li'],
-      ALLOWED_ATTR: ['href', 'target'],
+      ALLOWED_TAGS: ['a', 'p', 'h2', 'ul', 'li', 'img',],
+      ALLOWED_ATTR: ['href', 'target', 'src', 'alt'],
       ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
       ADD_ATTR: [['target', '_blank']],
     };
@@ -140,20 +150,23 @@ const handleSubmit = async (e) => {
     clearInterval(loadInterval);
     messageDiv.innerHTML = '';
 
-    if(response.ok) {
+   if(response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim(); // Sanitize the bot's response
         const sanitizedResponse = sanitizeHTML(parsedData);
 
         typeText(messageDiv, sanitizedResponse)
 
-    } else {
+    } else if (response.status === 429){
         const err = await response.text()
 
-        messageDiv.innerHTML = "Something went wrong";
+        messageDiv.innerHTML = err
 
         console.log(err);
     } 
+    else {
+        messageDiv.innerHTML = 'An error occured'
+    }
 }
 
 async function fetchInitialGreeting() {
