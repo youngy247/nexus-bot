@@ -99,7 +99,7 @@ app.post('/', async (req, res) => {
           )
           .join('\n\n');
 
-          const adamPicture = ` \n<img src="grad-pic.jpeg" alt="Adam's graduation picture"/>`
+          const adamPicture = ` \n<img src="grad-pic.jpeg" alt="Adam's graduation picture" class="grad-pic"/>`
   
       let response;
       if (userPrompt === "") {
