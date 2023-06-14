@@ -140,20 +140,23 @@ const handleSubmit = async (e) => {
     clearInterval(loadInterval);
     messageDiv.innerHTML = '';
 
-    if(response.ok) {
+   if(response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim(); // Sanitize the bot's response
         const sanitizedResponse = sanitizeHTML(parsedData);
 
         typeText(messageDiv, sanitizedResponse)
 
-    } else {
+    } else if (response.status === 429){
         const err = await response.text()
 
-        messageDiv.innerHTML = "Something went wrong";
+        messageDiv.innerHTML = err
 
         console.log(err);
     } 
+    else {
+        messageDiv.innerHTML = 'An error occured'
+    }
 }
 
 async function fetchInitialGreeting() {
