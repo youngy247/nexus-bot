@@ -103,6 +103,30 @@ function chatStripe (isAi, value, uniqueId){
     )
 }
 
+function generateSuggestionButtons(suggestions) {
+  const suggestionContainer = document.querySelector('#suggestion_container');
+  suggestionContainer.innerHTML = '';
+
+  const customLabels = {
+    'Provide a list of sample questions to ask about Adam which include his first name': 'Ask sample questions',
+    'Can you provide a picture of Adam Young?': 'Picture of Adam',
+    'Show me the projects that Adam has done so far': "Adam's Projects"
+  };
+
+  suggestions.forEach((suggestion) => {
+    const button = document.createElement('button');
+    button.textContent = customLabels[suggestion] || suggestion;
+    button.classList.add('suggestion');
+    button.addEventListener('click', () => {
+      const input = document.querySelector('textarea[name="prompt"]');
+      input.value = suggestion;
+      form.dispatchEvent(new Event('submit'));
+    });
+    suggestionContainer.appendChild(button);
+  });
+}
+
+
 const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -125,7 +149,7 @@ const handleSubmit = async (e) => {
 
     // fetch data from server -> bot's response
 
-    const response = await fetch('https://nexus-bnue.onrender.com', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -157,6 +181,10 @@ const handleSubmit = async (e) => {
 
         typeText(messageDiv, sanitizedResponse)
 
+        if (data.suggestions && data.suggestions.length > 0) {
+          generateSuggestionButtons(data.suggestions);
+        }
+
     } else if (response.status === 429){
         const err = await response.text()
 
@@ -171,7 +199,7 @@ const handleSubmit = async (e) => {
 
 async function fetchInitialGreeting() {
     try {
-      const response = await fetch('https://nexus-bnue.onrender.com');
+      const response = await fetch('http://localhost:5000');
       if (response.ok) {
         const data = await response.json();
         const initialGreeting = data.bot.trim();
@@ -179,6 +207,9 @@ async function fetchInitialGreeting() {
         chatContainer.innerHTML += chatStripe(true, "", uniqueId);
         const messageDiv = document.getElementById(uniqueId);
         typeText(messageDiv, initialGreeting);
+        if (data.suggestions && data.suggestions.length > 0) {
+          generateSuggestionButtons(data.suggestions);
+        }
       } else {
         throw new Error('Failed to fetch initial greeting from the server');
       }
