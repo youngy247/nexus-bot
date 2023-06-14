@@ -137,8 +137,8 @@ const handleSubmit = async (e) => {
     })
 
     const customPolicy = {
-      ALLOWED_TAGS: ['a', 'p', 'h2', 'ul', 'li'],
-      ALLOWED_ATTR: ['href', 'target'],
+      ALLOWED_TAGS: ['a', 'p', 'h2', 'ul', 'li', 'img',],
+      ALLOWED_ATTR: ['href', 'target', 'src', 'alt'],
       ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
       ADD_ATTR: [['target', '_blank']],
     };
