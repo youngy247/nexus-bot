@@ -138,11 +138,11 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: `Sample questions about Adam Young: 
 
-        1) What are Adam's skills and technologies expertise?
-        2) Can you provide more details about Adam Young's experience at IO Academy boot camp?
-        3) What are Adam's hobbies and interests outside of work?
-        4) How does Adam Young stay updated with the latest trends in software development?
-        5) What certifications has Adam Young earned?
+    1) What are Adam's skills and technologies expertise?
+    2) Can you provide more details about Adam Young's experience at IO Academy boot camp?
+    3) What are Adam's hobbies and interests outside of work?
+    4) How does Adam Young stay updated with the latest trends in software development?
+    5) What certifications has Adam Young earned?
         `,
                 suggestions: [
                   "Can you provide a picture of Adam Young?",
