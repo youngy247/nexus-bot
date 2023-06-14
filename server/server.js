@@ -26,8 +26,8 @@ const limiter = rateLimit({
     max: 10, // 10 requests per minute
     keyGenerator: (req) => req.ip,
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    message: 'Please do not spam my bot'
+	  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    message: 'Please do not spam me'
 });
 
 app.use(limiter);
