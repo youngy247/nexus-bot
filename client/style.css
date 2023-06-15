@@ -116,7 +116,7 @@ form {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 10px 10px 2px 10px;
+  padding: 10px 10px 0 10px;
   background: #40414F;
   border-radius: 10px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
@@ -130,7 +130,7 @@ textarea {
 
   color: #fff;
   font-size: 18px;
-
+  margin-top: 8px;
   padding: 10px;
   background: transparent;
   border-radius: 5px;
@@ -138,12 +138,38 @@ textarea {
   outline: none;
 }
 
-#submit-button {
-  outline: 0;
-  border: 0;
+.send-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #3b3434;
   cursor: pointer;
-  background: transparent;
+  padding: 10px;
+  margin: 10px;
+  width: 40px;
+  height: 40px;
+  transition: background-color 0.3s ease;
 }
+
+.send-button:hover {
+  background-color: #d5d5d5;
+}
+
+.send-icon {
+  width: 20px;
+  height: 20px;
+  fill: #888484; /* Arrow color */
+}
+
+.send-button.active {
+  background-color: rgb(78, 189, 78);
+}
+
+.send-button.active .send-icon {
+  fill: white; /* Arrow color when button is active */
+}
+
+
 
 #suggestion_container {
   display: flex;
