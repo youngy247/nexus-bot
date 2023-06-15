@@ -7,6 +7,20 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
 
+// Get the textarea and button elements
+const messageInput = document.getElementById('message-input');
+const submitButton = document.getElementById('submit-button');
+
+messageInput.addEventListener('input', () => {
+  if (messageInput.value.trim() !== '') {
+    submitButton.classList.add('active');
+  } else {
+    submitButton.classList.remove('active');
+  }
+});
+
+
+
 function loader(element) {
     element.textContent = '';
 
@@ -136,7 +150,7 @@ const handleSubmit = async (e) => {
     chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
 
     form.reset();
-
+    submitButton.classList.remove('active');
     // bot's chat
     const uniqueId = generateUniqueId();
     chatContainer.innerHTML += chatStripe(true, "", uniqueId);
@@ -176,7 +190,7 @@ const handleSubmit = async (e) => {
 
    if(response.ok) {
         const data = await response.json();
-        const parsedData = data.bot.trim(); // Sanitize the bot's response
+        const parsedData = data.bot.trim(); 
         const sanitizedResponse = sanitizeHTML(parsedData);
 
         typeText(messageDiv, sanitizedResponse)
