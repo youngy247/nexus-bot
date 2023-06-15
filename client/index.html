@@ -12,9 +12,15 @@
       <div id="chat_container"></div>
       <div id="suggestion_container"></div>
       <form>
-        <textarea name="prompt" rows="1" cols="1" placeholder="Ask Nexus..."></textarea>
-          <button id="submit-button" type="submit"><img src="assets/send.svg" /></button>
+        <textarea id="message-input" name="prompt" placeholder="Type your message..."></textarea>
+        <button id="submit-button" type="submit" class="send-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="send-icon">
+            <path d="M21 12L3 2v20l18-10zm0-2.45L6.55 2 21 12.45v-2.9z"/>
+          </svg>
+        </button>
+        
       </form>
+      
     </div>
     <script type="module" src="script.js"></script>
   </body>
