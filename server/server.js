@@ -139,7 +139,7 @@ app.post('/', async (req, res) => {
           bot: `Sample questions about Adam Young: 
 
 1) What are Adam's skills and technologies expertise?
-2) Can you provide more details about Adam Young's experience at IO Academy boot camp?
+2) Can you provide more details about Adam Young's experience at iO Academy boot camp?
 3) What are Adam's hobbies and interests outside of work?
 4) How does Adam Young stay updated with the latest trends in software development?
 5) What certifications has Adam Young earned?
@@ -169,7 +169,7 @@ app.post('/', async (req, res) => {
   
               Introduction:
               - Adam Young is a 21 years old talented software engineer from Weston-super-Mare, UK. 
-              - He recently graduated from the Full Stack Track course at IO Academy boot camp. 
+              - He recently graduated from the Full Stack Track course at iO Academy boot camp. 
               - Adam gained valuable experience working in a team of 8 developers on various group projects and earned his agile professional certification. 
               - He is now on the job hunt to get a job as a Junior Software engineer.
   
