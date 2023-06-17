@@ -39,8 +39,6 @@ app.get('/', async (_, res) => {
             bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering.",
             suggestions: [
               "Provide a list of sample questions to ask about Adam", 
-              "Can you provide a picture of Adam Young?",
-              "Show me the projects that Adam has done so far",
           ]
         });
     } catch (error) {
@@ -114,15 +112,12 @@ app.post('/', async (req, res) => {
           bot: "Hi there! How can I help you?",
           suggestions: [
             "Provide a list of sample questions to ask about Adam", 
-            "Can you provide a picture of Adam Young?",
-            "Show me the projects that Adam has done so far",
           ]
         });
       } else if (isAboutProjects && isAboutAdam){
         return res.send({
           bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`,
           suggestions: [
-            "Provide a list of sample questions to ask about Adam",
             "Can you provide a picture of Adam Young?"
           ],
         })
@@ -130,7 +125,6 @@ app.post('/', async (req, res) => {
         return res.send({
           bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`,
           suggestions: [
-            "Provide a list of sample questions to ask about Adam",
             "Show me the projects that Adam has done so far",
         ],
         })
@@ -156,8 +150,6 @@ app.post('/', async (req, res) => {
           bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can use the suggestion buttons below.",
           suggestions: [
             "Provide a list of sample questions to ask about Adam", 
-            "Can you provide a picture of Adam Young?",
-            "Show me the projects that Adam has done so far",
           ],
         });
       } else {
@@ -196,7 +188,7 @@ app.post('/', async (req, res) => {
   
               ${userPrompt}
   
-              If the user's question is not relevant to Adam answer the question first then remind them it is not relevant to Adam.
+              If the user's question is not relevant to Adam answer the question then remind them it is not relevant to Adam.
 
               Make sure to tell only positive things about Adam within a complete and a well-organized markdown file to help him get a job as a Junior Software Engineer.`;
   
@@ -212,7 +204,7 @@ app.post('/', async (req, res) => {
       }
     
     const formattedResponse = response.data.choices[0].text;
-    const confidenceScore = response["top_p"];
+
 
       res.status(200).send({
         bot: formattedResponse,
@@ -221,7 +213,6 @@ app.post('/', async (req, res) => {
           "Can you provide a picture of Adam Young?",
           "Show me the projects that Adam has done so far",
         ],
-        confidenceScore
       });
     } catch (error) {
       console.log(error);
