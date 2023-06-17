@@ -120,11 +120,11 @@ app.post('/', async (req, res) => {
       } else if (isAboutSkills && isAboutAdam){
         return res.send({
           bot: 
-`Adam has a strong proficiency in technologies like PHP, JavaScript, React, ExpressJS, Node.js and Tailwind. Experienced hosting using Netlify, Render and Azure. He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs.
-          
-To guarantee the stability and quality of his work, Adam is well-versed in employing industry-standard testing frameworks like PHPUnit and Jest. This allows him to conduct thorough and rigorous testing to ensure the reliability and robustness of his software solutions.
+`Adam is proficient in PHP, JavaScript, React, ExpressJS, Node.js, and Tailwind, with hands-on experience in developing web applications, creating RESTful APIs, and implementing responsive UI designs. Adam demonstrates proficiency in hosting technologies such as Netlify, Render, and Azure, enabling him to effectively deploy and manage web applications.
 
-Adam's comprehensive skill set, combined with his experience working with Cloudflare CDN, makes him a valuable asset in delivering high-quality and performant web applications.`,
+To ensure stability and quality, Adam utilizes industry-standard testing frameworks like PHPUnit and Jest. This allows him to conduct thorough testing, ensuring the reliability and robustness of his software solutions.
+
+With experience working with Cloudflare CDN and a comprehensive skill set, Adam excels in delivering high-quality and performant web applications.`,
 suggestions: [
   "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
   "What projects has Adam has done so far?",
@@ -169,7 +169,7 @@ suggestions: [
         })
       } else if (isAboutBootcamp && isAboutAdam){
         return res.send({
-          bot: `Adam Young recently graduated from the Full Stack Track course at iO Academy boot camp, where he gained valuable experience working in a team of 8 developers on various group projects. He earned his agile professional certification and honed his problem-solving and analytical skills during his time there.`,
+          bot: `Adam Young recently graduated from the Full Stack Track course at iO Academy. Throughout his journey, Adam had the opportunity to collaborate and work closely with a diverse team of 8 developers, forming a cohesive SCRUM team that worked together on various projects to meet the product owner's requirements. He earned his agile professional certification and honed his problem-solving and analytical skills during his time there.`,
           suggestions: [
             "What are Adam's skills and technologies expertise?",
             "What projects has Adam has done so far?",
