@@ -169,11 +169,10 @@ textarea {
   fill: white; /* Arrow color when button is active */
 }
 
-
-
 #suggestion_container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -187,6 +186,7 @@ button {
   font-size: 14px;
   margin-right: 5px;
   margin-left: 5px;
+  margin-bottom: 5px;
   padding: 8px 12px;
   transition: background-color 0.3s ease;
   font-size: 1rem;
