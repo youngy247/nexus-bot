@@ -121,13 +121,16 @@ function generateSuggestionButtons(suggestions) {
   const suggestionContainer = document.querySelector('#suggestion_container');
   suggestionContainer.innerHTML = '';
 
+  const screenWidth = window.innerWidth;
+  const isMobile = screenWidth <= 768;
+
   const customLabels = {
     'Provide a list of sample questions to ask about Adam': 'Ask sample questions',
-    "What are Adam's skills and technologies expertise?": '1) Skills',
-    "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?" : "2) iO Academy",
-    'What projects has Adam has done so far?': "3) Adam's Projects",
-    "What are Adam's hobbies and interests outside of software development?": "4) Hobbies",
-    'Can you provide a picture of Adam Young?': '5) Picture',
+    "What are Adam's skills and technologies expertise?": isMobile ? "Skills" : '1) Skills',
+    "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?" : isMobile ? "iO Academy" : '2) iO Academy',
+    'What projects has Adam has done so far?': isMobile ? "Adam's Projects" : '3) Adam\'s Projects',
+    "What are Adam's hobbies and interests outside of software development?": isMobile ? "Hobbies" : '4) Hobbies',
+    'Can you provide a picture of Adam Young?': isMobile ? "Picture" : '5) Picture',
   };
 
   suggestions.forEach((suggestion) => {
