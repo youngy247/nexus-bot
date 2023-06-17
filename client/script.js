@@ -124,7 +124,7 @@ function generateSuggestionButtons(suggestions) {
   const customLabels = {
     'Provide a list of sample questions to ask about Adam': 'Ask sample questions',
     "What are Adam's skills and technologies expertise?": '1) Skills',
-    "Can you provide more details about Adam Young's experience at iO Academy bootcamp?" : "2) iO Academy",
+    "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?" : "2) iO Academy",
     'What projects has Adam has done so far?': "3) Adam's Projects",
     "What are Adam's hobbies and interests outside of software development?": "4) Hobbies",
     'Can you provide a picture of Adam Young?': '5) Picture of Adam',
@@ -210,7 +210,7 @@ const handleSubmit = async (e) => {
         console.log(err);
     } 
     else {
-        messageDiv.innerHTML = 'My apologies it seems that an error has occured'
+        messageDiv.innerHTML = 'My apologies it seems that an error has occurred'
     }
 }
 
@@ -228,7 +228,7 @@ async function fetchInitialGreeting() {
           generateSuggestionButtons(data.suggestions);
         }
       } else {
-        throw new Error('My apologies it seems that an error has occured');
+        throw new Error('My apologies it seems that an error has occurred');
       }
     } catch (error) {
       messageDiv.innerHTML(error);
