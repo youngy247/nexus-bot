@@ -52,11 +52,14 @@ app.post('/', async (req, res) => {
     try {
       const userPrompt = req.body.prompt;
   
-      // Check if the user prompt mentions "Adam" 
+      // Check if the user prompt mentions
       const isAboutAdam = userPrompt.toLowerCase().includes("adam");
-      const isAboutProjects =  userPrompt.toLowerCase().includes("project")
+      const isAboutSkills = userPrompt.toLowerCase().includes("skills");
+      const isAboutBootcamp = userPrompt.toLowerCase().includes("bootcamp")
+      const isAboutProjects =  userPrompt.toLowerCase().includes("projects")
+      const isAboutHobbies = userPrompt.toLowerCase().includes("hobbies")
       const isAboutPicture = userPrompt.toLowerCase().includes("picture")
-      const isAboutSampleQuestions = userPrompt.toLowerCase().includes("sample questions")
+      const isAboutSampleQuestions = userPrompt.toLowerCase().includes("sample")
 
       // Projects object and formatting html
       const projects = [
@@ -114,33 +117,84 @@ app.post('/', async (req, res) => {
             "Provide a list of sample questions to ask about Adam", 
           ]
         });
-      } else if (isAboutProjects && isAboutAdam){
+      } else if (isAboutSkills && isAboutAdam){
+        return res.send({
+          bot: 
+`Adam has a strong proficiency in technologies like PHP, JavaScript, React, ExpressJS, Node.js and Tailwind. Experienced hosting using Netlify, Render and Azure. He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs.
+          
+To guarantee the stability and quality of his work, Adam is well-versed in employing industry-standard testing frameworks like PHPUnit and Jest. This allows him to conduct thorough and rigorous testing to ensure the reliability and robustness of his software solutions.
+
+Adam's comprehensive skill set, combined with his experience working with Cloudflare CDN, makes him a valuable asset in delivering high-quality and performant web applications.`,
+suggestions: [
+  "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+  "What projects has Adam has done so far?",
+  "What are Adam's hobbies and interests outside of software development?",
+  "Can you provide a picture of Adam Young?",
+],
+        })
+      }
+      
+      else if (isAboutProjects && isAboutAdam){
         return res.send({
           bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`,
           suggestions: [
-            "Can you provide a picture of Adam Young?"
+            "What are Adam's skills and technologies expertise?",
+            "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+            "What are Adam's hobbies and interests outside of software development?",
+            "Can you provide a picture of Adam Young?",
           ],
         })
-      } else if (isAboutPicture && isAboutAdam){
+      } 
+      else if (isAboutHobbies && isAboutAdam){
+        return res.send({
+          bot: `Outside of software development Adam enjoys playing chess to stimulate his strategic thinking. He keeps physically fit by regularly training in the gym, he likes to play rugby and achieved his Wales Rugby League U19 cap at the age of 16. Adam's passion for continuous learning drives him to stay updated with the latest trends and technologies in the software development field.`,
+          suggestions: [
+            "What are Adam's skills and technologies expertise?",
+            "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+            "What projects has Adam has done so far?",
+            "Can you provide a picture of Adam Young?",
+          ],
+        })
+      }
+      
+      else if (isAboutPicture && isAboutAdam){
         return res.send({
           bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`,
           suggestions: [
-            "Show me the projects that Adam has done so far",
+            "What are Adam's skills and technologies expertise?",
+            "What projects has Adam has done so far?",
+            "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+            "What are Adam's hobbies and interests outside of software development?",
         ],
         })
-      } else if (isAboutSampleQuestions && isAboutAdam){
+      } else if (isAboutBootcamp && isAboutAdam){
+        return res.send({
+          bot: `Adam Young recently graduated from the Full Stack Track course at iO Academy boot camp, where he gained valuable experience working in a team of 8 developers on various group projects. He earned his agile professional certification and honed his problem-solving and analytical skills during his time there.`,
+          suggestions: [
+            "What are Adam's skills and technologies expertise?",
+            "What projects has Adam has done so far?",
+            "What are Adam's hobbies and interests outside of software development?",
+            "Can you provide a picture of Adam Young?",
+        ],
+        })
+      }
+      
+      else if (isAboutSampleQuestions && isAboutAdam){
         return res.send({
           bot: `Sample questions about Adam Young: 
 
 1) What are Adam's skills and technologies expertise?
 2) Can you provide more details about Adam Young's experience at iO Academy boot camp?
-3) What are Adam's hobbies and interests outside of work?
-4) How does Adam Young stay updated with the latest trends in software development?
-5) What certifications has Adam Young earned?
+3) What projects has Adam has done so far?
+4) What are Adam's hobbies and interests outside of software development?
+5) Can you provide a picture of Adam Young?
         `,
                 suggestions: [
+                  "What are Adam's skills and technologies expertise?",
+                  "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+                  "What projects has Adam has done so far?",
+                  "What are Adam's hobbies and interests outside of software development?",
                   "Can you provide a picture of Adam Young?",
-                  "Show me the projects that Adam has done so far",
               ],
         })
       }
@@ -155,7 +209,7 @@ app.post('/', async (req, res) => {
       } else {
         
         const prompt = `You are a world-class assistant and question answerer for Adam Young.
-              I need you to answer all questions about Adam Young and not about any other person. Here is some information about Adam Young to help answer the question that you get given, first scan through the information after reading the user prompt and try to only answer the question they ask first:
+              I need you to answer all questions about Adam Young and not about any other person. Here is some information about Adam Young to help answer the question that you get given, first scan through the information after reading the user prompt and give only relevant information:
   
               Introduction:
               - Adam Young is a 21 years old talented software engineer from Weston-super-Mare, UK. 
@@ -164,7 +218,7 @@ app.post('/', async (req, res) => {
               - He is now on the job hunt to get a job as a Junior Software engineer.
   
               Skills:
-              - Adam has a strong proficiency in technologies like PHP, JavaScript, React, ExpressJS, Node.js, HTML, and Tailwind.
+              - Adam has a strong proficiency in technologies like PHP, JavaScript, React, ExpressJS, Node.js and Tailwind.
               - Experienced hosting using Netlify, Render and Azure
               - Utilised PHPUnit and Jest for testing
               - He has hands-on experience developing web applications, creating RESTful APIs, and implementing responsive UI designs.
@@ -210,8 +264,6 @@ app.post('/', async (req, res) => {
         bot: formattedResponse,
         suggestions: [
           "Provide a list of sample questions to ask about Adam", 
-          "Can you provide a picture of Adam Young?",
-          "Show me the projects that Adam has done so far",
         ],
       });
     } catch (error) {
