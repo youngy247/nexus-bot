@@ -198,7 +198,8 @@ app.post('/', async (req, res) => {
   
               ${userPrompt}
   
-  
+              If the user's question is not relevant to Adam answer the question then remind them it is not relevant.
+
               Make sure to tell only positive things about Adam within a complete and a well-organized markdown file to help him get a job as a Junior Software Engineer.`;
   
         response = await openai.createCompletion({
