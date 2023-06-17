@@ -126,7 +126,7 @@ To ensure stability and quality, Adam utilizes industry-standard testing framewo
 
 With experience working with Cloudflare CDN and a comprehensive skill set, Adam excels in delivering high-quality and performant web applications.`,
 suggestions: [
-  "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+  "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
   "What projects has Adam has done so far?",
   "What are Adam's hobbies and interests outside of software development?",
   "Can you provide a picture of Adam Young?",
@@ -139,7 +139,7 @@ suggestions: [
           bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`,
           suggestions: [
             "What are Adam's skills and technologies expertise?",
-            "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+            "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
             "What are Adam's hobbies and interests outside of software development?",
             "Can you provide a picture of Adam Young?",
           ],
@@ -150,7 +150,7 @@ suggestions: [
           bot: `Outside of software development Adam enjoys playing chess to stimulate his strategic thinking. He keeps physically fit by regularly training in the gym, he likes to play rugby and achieved his Wales Rugby League U19 cap at the age of 16. Adam's passion for continuous learning drives him to stay updated with the latest trends and technologies in the software development field.`,
           suggestions: [
             "What are Adam's skills and technologies expertise?",
-            "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+            "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
             "What projects has Adam has done so far?",
             "Can you provide a picture of Adam Young?",
           ],
@@ -163,7 +163,7 @@ suggestions: [
           suggestions: [
             "What are Adam's skills and technologies expertise?",
             "What projects has Adam has done so far?",
-            "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+            "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
             "What are Adam's hobbies and interests outside of software development?",
         ],
         })
@@ -184,14 +184,14 @@ suggestions: [
           bot: `Sample questions about Adam Young: 
 
 1) What are Adam's skills and technologies expertise?
-2) Can you provide more details about Adam Young's experience at iO Academy boot camp?
+2) Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?
 3) What projects has Adam has done so far?
 4) What are Adam's hobbies and interests outside of software development?
 5) Can you provide a picture of Adam Young?
         `,
                 suggestions: [
                   "What are Adam's skills and technologies expertise?",
-                  "Can you provide more details about Adam Young's experience at iO Academy bootcamp?",
+                  "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
                   "What projects has Adam has done so far?",
                   "What are Adam's hobbies and interests outside of software development?",
                   "Can you provide a picture of Adam Young?",
