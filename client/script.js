@@ -228,10 +228,10 @@ async function fetchInitialGreeting() {
           generateSuggestionButtons(data.suggestions);
         }
       } else {
-        throw new Error('Failed to fetch initial greeting from the server');
+        throw new Error('My apologies it seems that an error has occured');
       }
     } catch (error) {
-      console.log(error);
+      messageDiv.innerHTML(error);
     }
   }
   
