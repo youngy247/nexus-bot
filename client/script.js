@@ -122,9 +122,12 @@ function generateSuggestionButtons(suggestions) {
   suggestionContainer.innerHTML = '';
 
   const customLabels = {
+    "What are Adam's skills and technologies expertise?": '1) Skills',
     'Provide a list of sample questions to ask about Adam': 'Ask sample questions',
-    'Can you provide a picture of Adam Young?': 'Picture of Adam',
-    'Show me the projects that Adam has done so far': "Adam's Projects"
+    'Can you provide a picture of Adam Young?': '5) Picture of Adam',
+    'What projects has Adam has done so far?': "3) Adam's Projects",
+    "Can you provide more details about Adam Young's experience at iO Academy bootcamp?" : "2) iO Academy",
+    "What are Adam's hobbies and interests outside of software development?": "4) Hobbies",
   };
 
   suggestions.forEach((suggestion) => {
