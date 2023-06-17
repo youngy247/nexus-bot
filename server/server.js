@@ -162,8 +162,6 @@ app.post('/', async (req, res) => {
         });
       } else {
         
-        
-  
         const prompt = `You are a world-class assistant and question answerer for Adam Young.
               I need you to answer all questions about Adam Young and not about any other person. Here is some information about Adam Young to help answer the question that you get given, first scan through the information after reading the user prompt and try to only answer the question they ask first:
   
@@ -214,7 +212,7 @@ app.post('/', async (req, res) => {
       }
     
     const formattedResponse = response.data.choices[0].text;
-    
+    const confidenceScore = response["top_p"];
 
       res.status(200).send({
         bot: formattedResponse,
@@ -223,6 +221,7 @@ app.post('/', async (req, res) => {
           "Can you provide a picture of Adam Young?",
           "Show me the projects that Adam has done so far",
         ],
+        confidenceScore
       });
     } catch (error) {
       console.log(error);
