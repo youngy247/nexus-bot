@@ -42,7 +42,6 @@ app.get('/', async (_, res) => {
           ]
         });
     } catch (error) {
-        console.log(error);
         res.status(500).send({ error });
     }
 });
@@ -267,7 +266,6 @@ suggestions: [
         ],
       });
     } catch (error) {
-      console.log(error);
       res.status(500).send({ error });
     }
   });
