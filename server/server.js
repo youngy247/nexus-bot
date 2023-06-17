@@ -36,7 +36,7 @@ app.use(limiter);
 app.get('/', async (_, res) => {
     try {
         res.status(200).send({
-            bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects, and experiences as a recent graduate in software engineering.",
+            bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects and experiences as a recent graduate in software engineering.",
             suggestions: [
               "Provide a list of sample questions to ask about Adam", 
           ]
