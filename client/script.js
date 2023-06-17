@@ -210,7 +210,7 @@ const handleSubmit = async (e) => {
         console.log(err);
     } 
     else {
-        messageDiv.innerHTML = 'An error occured'
+        messageDiv.innerHTML = 'My apologies it seems that an error has occured'
     }
 }
 
