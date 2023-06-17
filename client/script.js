@@ -127,7 +127,7 @@ function generateSuggestionButtons(suggestions) {
     "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?" : "2) iO Academy",
     'What projects has Adam has done so far?': "3) Adam's Projects",
     "What are Adam's hobbies and interests outside of software development?": "4) Hobbies",
-    'Can you provide a picture of Adam Young?': '5) Picture of Adam',
+    'Can you provide a picture of Adam Young?': '5) Picture',
   };
 
   suggestions.forEach((suggestion) => {
