@@ -212,7 +212,7 @@ const handleSubmit = async (e) => {
 
     } 
     else {
-        messageDiv.innerHTML = 'My apologies it seems that an error has occurred'
+        messageDiv.innerHTML = 'My apologies I am not currently able to assist you'
     }
 }
 
@@ -230,7 +230,7 @@ async function fetchInitialGreeting() {
           generateSuggestionButtons(data.suggestions);
         }
       } else {
-        throw new Error('My apologies it seems that an error has occurred');
+        throw new Error('My apologies I am not currently able to assist you');
       }
     } catch (error) {
       messageDiv.innerHTML(error);
