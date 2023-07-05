@@ -20,6 +20,57 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Apply the rate limiter to all routes except the cron job route
+app.use((req, res, next) => {
+  if (req.path === '/cron-job-route') {
+    next();
+  } else {
+    limiter(req, res, next);
+  }
+  });
+
+ // Create a rate limiter
+ const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute
+  keyGenerator: (req) => req.ip,
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  message: 'Please do not spam me'
+});
+
+app.use(limiter);
+
+
+  // Define a route for the cron job
+
+app.get('/cron-job-route', (req, res) => {
+
+  const serverUrl = 'https://nexus-bnue.onrender.com';
+
+  console.log(`Server ${serverUrl} is alive.`);
+
+  res.sendStatus(200);
+});
+
+
+// Schedule the cron job to run every 10 minutes
+cronjob.schedule('*/10 * * * *', () => {
+  // Send a GET request to the cron job route to execute the logic
+  const cronJobUrl = 'https://nexus-bnue.onrender.com/cron-job-route';
+
+  fetch(cronJobUrl)
+    .then((response) => {
+      if (response.ok) {
+        console.log('Cron job executed successfully.');
+      } else {
+        throw new Error('Request failed with status code ' + response.status);
+      }
+    })
+    .catch((error) => {
+      console.log('Error executing cron job:', error.message);
+    });
+});
 
 app.get('/', async (_, res) => {
     try {
@@ -258,53 +309,5 @@ suggestions: [
     }
   });
   
-
-  // Define a route for the cron job
-
-app.get('/cron-job-route', (req, res) => {
-
-  const serverUrl = 'https://nexus-bnue.onrender.com';
-
-  console.log(`Server ${serverUrl} is alive.`);
-
-  res.sendStatus(200);
-});
-
-// Create a rate limiter
-const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 10, // 10 requests per minute
-  keyGenerator: (req) => req.ip,
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  message: 'Please do not spam me'
-});
-
-// Apply the rate limiter to all routes except the cron job route
-app.use((req, res, next) => {
-if (req.path === '/cron-job-route') {
-  next();
-} else {
-  limiter(req, res, next);
-}
-});
-
-// Schedule the cron job to run every 10 minutes
-cronjob.schedule('*/10 * * * *', () => {
-  // Send a GET request to the cron job route to execute the logic
-  const cronJobUrl = 'https://nexus-bnue.onrender.com/cron-job-route';
-
-  fetch(cronJobUrl)
-    .then((response) => {
-      if (response.ok) {
-        console.log('Cron job executed successfully.');
-      } else {
-        throw new Error('Request failed with status code ' + response.status);
-      }
-    })
-    .catch((error) => {
-      console.log('Error executing cron job:', error.message);
-    });
-});
 
 app.listen(5000, () => console.log('Server is running on port http://localhost:5000'));
