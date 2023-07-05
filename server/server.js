@@ -261,22 +261,37 @@ suggestions: [
   
 
   // Define a route for the cron job
-  app.get('/cron-job-route', (req, res) => {
-    // Handle the cron job logic here
-    const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
-  
-    async function isAlive() {
-      const isAlive = await ping.sys.probeAsync(serverUrl);
-      if (isAlive) {
-        console.log(`Server ${serverUrl} is alive.`);
-      } else {
-        console.log(`Server ${serverUrl} is down.`);
-      }
+app.get('/cron-job-route', async (req, res) => {
+  // Handle the cron job logic here
+  const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
+
+  function pingServer() {
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('Ping request timed out.'));
+      }, 15000); // Set a timeout of 15 seconds
+
+      ping.sys.probe(serverUrl, (isAlive) => {
+        clearTimeout(timeout);
+        resolve(isAlive);
+      });
+    });
+  }
+
+  try {
+    const isAlive = await pingServer();
+    if (isAlive) {
+      console.log(`Server ${serverUrl} is alive.`);
+    } else {
+      console.log(`Server ${serverUrl} is down.`);
     }
-  
-    isAlive();
-    res.sendStatus(200);
-  });
+  } catch (error) {
+    console.log('Error pinging server:', error.message);
+  }
+
+  res.sendStatus(200);
+});
+
 
 // Create a rate limiter
 const limiter = rateLimit({
