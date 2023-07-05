@@ -12,25 +12,11 @@ const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-
-
 const openai = new OpenAIApi(configuration);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-
-const limiter = rateLimit({
-    windowMs: 60 * 1000, // 1 minute
-    max: 10, // 10 requests per minute
-    keyGenerator: (req) => req.ip,
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    message: 'Please do not spam me'
-});
-
-app.use(limiter);
 
 
 app.get('/', async (_, res) => {
@@ -270,5 +256,56 @@ suggestions: [
     }
   });
   
+
+  // Define a route for the cron job
+app.get('/cron-job-route', (req, res) => {
+  // Handle the cron job logic here
+  const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
+  ping.sys.probe(serverUrl, (isAlive) => {
+    if (isAlive) {
+      console.log(`Server ${serverUrl} is alive.`);
+    } else {
+      console.log(`Server ${serverUrl} is down.`);
+    }
+  });
+  res.sendStatus(200);
+});
+
+// Create a rate limiter
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 10, // 10 requests per minute
+  keyGenerator: (req) => req.ip,
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  message: 'Please do not spam me'
+});
+
+// Apply the rate limiter to all routes except the cron job route
+app.use((req, res, next) => {
+if (req.path === '/cron-job-route') {
+  next();
+} else {
+  limiter(req, res, next);
+}
+});
+
+// Schedule the cron job to run every 10 minutes
+cronjob.schedule('*/10 * * * *', () => {
+  // Send a GET request to the cron job route to execute the logic
+  const cronJobUrl = 'https://nexus-bnue.onrender.com/cron-job-route';
+
+  fetch(cronJobUrl)
+    .then((response) => {
+      if (response.ok) {
+        console.log('Cron job executed successfully.');
+      } else {
+        throw new Error('Request failed with status code ' + response.status);
+      }
+    })
+    .catch((error) => {
+      console.log('Error executing cron job:', error.message);
+    });
+});
 
 app.listen(5000, () => console.log('Server is running on port http://localhost:5000'));
