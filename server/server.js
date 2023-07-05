@@ -3,9 +3,9 @@ import rateLimit from 'express-rate-limit';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
-const cronjob = require('node-cron');
-const ping = require('ping');
-const fetch = require('node-fetch');
+import cronjob from 'node-cron';
+import ping from 'ping';
+import fetch from 'node-fetch';
 
 
 dotenv.config();
