@@ -21,11 +21,9 @@ app.use(cors());
 app.use(express.json());
 
 app.set('trust proxy', 4)
-app.get('/ip', (request, response) => response.send(request.ip))
+
 
  // Create a rate limiter
-
-
  const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
   max: 10, // 10 requests per minute
