@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
 import cronjob from 'node-cron';
-import ping from 'ping';
 import fetch from 'node-fetch';
 
 
@@ -261,37 +260,15 @@ suggestions: [
   
 
   // Define a route for the cron job
-app.get('/cron-job-route', async (req, res) => {
-  // Handle the cron job logic here
+
+app.get('/cron-job-route', (req, res) => {
+
   const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
 
-  function pingServer() {
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        reject(new Error('Ping request timed out.'));
-      }, 15000); // Set a timeout of 15 seconds
-
-      ping.sys.probe(serverUrl, (isAlive) => {
-        clearTimeout(timeout);
-        resolve(isAlive);
-      });
-    });
-  }
-
-  try {
-    const isAlive = await pingServer();
-    if (isAlive) {
-      console.log(`Server ${serverUrl} is alive.`);
-    } else {
-      console.log(`Server ${serverUrl} is down.`);
-    }
-  } catch (error) {
-    console.log('Error pinging server:', error.message);
-  }
+  console.log(`Server ${serverUrl} is alive.`);
 
   res.sendStatus(200);
 });
-
 
 // Create a rate limiter
 const limiter = rateLimit({
