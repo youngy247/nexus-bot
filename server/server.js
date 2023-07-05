@@ -263,7 +263,7 @@ suggestions: [
 
 app.get('/cron-job-route', (req, res) => {
 
-  const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
+  const serverUrl = 'https://nexus-bnue.onrender.com';
 
   console.log(`Server ${serverUrl} is alive.`);
 
