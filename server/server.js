@@ -39,7 +39,14 @@ app.use((req, res, next) => {
   message: 'Please do not spam me'
 });
 
-app.use(limiter);
+// Apply the rate limiter to all routes except the cron job route
+app.use((req, res, next) => {
+  if (req.path === '/cron-job-route') {
+    next();
+  } else {
+    limiter(req, res, next);
+  }
+  });
 
 
   // Define a route for the cron job
