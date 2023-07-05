@@ -177,6 +177,10 @@ textarea {
   margin-bottom: 20px;
 }
 
+.suggestion {
+  height: 3rem;
+}
+
 button {
   background-color: #eaeaea;
   border: none;
