@@ -258,18 +258,22 @@ suggestions: [
   
 
   // Define a route for the cron job
-app.get('/cron-job-route', (req, res) => {
-  // Handle the cron job logic here
-  const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
-  ping.sys.probe(serverUrl, (isAlive) => {
-    if (isAlive) {
-      console.log(`Server ${serverUrl} is alive.`);
-    } else {
-      console.log(`Server ${serverUrl} is down.`);
+  app.get('/cron-job-route', (req, res) => {
+    // Handle the cron job logic here
+    const serverUrl = 'https://portfolio-backend-3jb1.onrender.com';
+  
+    async function isAlive() {
+      const isAlive = await ping.sys.probeAsync(serverUrl);
+      if (isAlive) {
+        console.log(`Server ${serverUrl} is alive.`);
+      } else {
+        console.log(`Server ${serverUrl} is down.`);
+      }
     }
+  
+    isAlive();
+    res.sendStatus(200);
   });
-  res.sendStatus(200);
-});
 
 // Create a rate limiter
 const limiter = rateLimit({
