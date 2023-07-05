@@ -25,13 +25,14 @@ app.use(express.json());
 
  const keyGenerator = (req) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log('IP Address:', ip); // Add this console log statement
   return ip;
 };
 
  const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
   max: 10, // 10 requests per minute
-  keyGenerator,
+  keyGenerator: keyGenerator,
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: 'Please do not spam me'
