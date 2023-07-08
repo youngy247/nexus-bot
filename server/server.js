@@ -5,6 +5,7 @@ import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
 import cronjob from 'node-cron';
 import fetch from 'node-fetch';
+import routes from './src/routes/routes.js';
 
 
 dotenv.config();
@@ -22,6 +23,8 @@ app.use(express.json());
 
 app.set('trust proxy', 4)
 
+// Mount the routes from routes.js
+app.use(routes);
 
 // Apply the rate limiter to all routes except the cron job route
 app.use((req, res, next) => {
@@ -31,17 +34,6 @@ app.use((req, res, next) => {
     limiter(req, res, next);
   }
   });
-
-  // Define a route for the cron job
-
-app.get('/cron-job-route', (req, res) => {
-
-  const serverUrl = 'https://nexus-bnue.onrender.com';
-
-  console.log(`Server ${serverUrl} is alive.`);
-
-  res.sendStatus(200);
-});
 
 
 // Schedule the cron job to run every 10 minutes
@@ -60,19 +52,6 @@ cronjob.schedule('*/10 * * * *', () => {
     .catch((error) => {
       console.log('Error executing cron job:', error.message);
     });
-});
-
-app.get('/', async (_, res) => {
-    try {
-        res.status(200).send({
-            bot: "Welcome to Nexus Adam Young's Personal Assistant! I'm here to provide you with information and answer any questions you have about Adam's skills, projects and experiences as a recent graduate in software engineering.",
-            suggestions: [
-              "Provide a list of sample questions to ask about Adam", 
-          ]
-        });
-    } catch (error) {
-        res.status(500).send({ error });
-    }
 });
 
 
