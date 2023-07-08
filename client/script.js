@@ -1,6 +1,5 @@
-import bot from './assets/bot.svg';
-import user from  './assets/user.svg';
 import { sanitizeHTML } from './helpers/domUtils.js';
+import { ChatStripe } from './components/ChatStripe.js';
 
 
 const form = document.querySelector('form');
@@ -98,24 +97,6 @@ function generateUniqueId() {
     return `id=${timestamp}-${hexadecimalString}`;
 }
 
-function chatStripe (isAi, value, uniqueId){
-    return (
-        `
-        <div class="wrapper ${isAi && 'ai'}">
-            <div class="chat">
-                <div class="profile">
-                    <img 
-                        src="${isAi ? bot : user}"
-                        alt="${isAi ? 'bot' : 'user'}"
-                    />
-                </div>
-                <div class="message" id=${uniqueId}>${value}</div>
-            </div>
-        </div>
-        `
-    )
-}
-
 function generateSuggestionButtons(suggestions) {
   const suggestionContainer = document.querySelector('#suggestion_container');
   suggestionContainer.innerHTML = '';
@@ -152,13 +133,13 @@ const handleSubmit = async (e) => {
     const data = new FormData(form);
 
     // user's chat
-    chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+    chatContainer.innerHTML += ChatStripe(false, data.get('prompt'));
 
     form.reset();
     submitButton.classList.remove('active');
     // bot's chat
     const uniqueId = generateUniqueId();
-    chatContainer.innerHTML += chatStripe(true, "", uniqueId);
+    chatContainer.innerHTML += ChatStripe(true, "", uniqueId);
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
@@ -212,7 +193,7 @@ async function fetchInitialGreeting() {
         const data = await response.json();
         const initialGreeting = data.bot.trim();
         const uniqueId = generateUniqueId();
-        chatContainer.innerHTML += chatStripe(true, "", uniqueId);
+        chatContainer.innerHTML += ChatStripe(true, "", uniqueId);
         const messageDiv = document.getElementById(uniqueId);
         typeText(messageDiv, initialGreeting);
         if (data.suggestions && data.suggestions.length > 0) {
