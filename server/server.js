@@ -1,19 +1,9 @@
 import express from 'express';
 import limiter from './src/middlewares/rateLimiter.js'
-import * as dotenv from 'dotenv';
 import cors from 'cors';
-import { Configuration, OpenAIApi } from 'openai';
+import openai from './src/helpers/openai.js';
 import routes from './src/routes/routes.js';
 
-
-dotenv.config();
-
-
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(configuration);
 
 const app = express();
 app.use(cors());
