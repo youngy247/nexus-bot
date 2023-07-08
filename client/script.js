@@ -1,6 +1,7 @@
 import bot from './assets/bot.svg';
 import user from  './assets/user.svg';
-import DOMPurify from 'dompurify';
+import { sanitizeHTML } from './helpers/domUtils.js';
+
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
@@ -18,7 +19,6 @@ messageInput.addEventListener('input', () => {
     submitButton.classList.remove('active');
   }
 });
-
 
 
 function loader(element) {
@@ -89,7 +89,6 @@ function findClosingTagIndex(inputString, startIndex) {
   throw new Error("The input string does not contain well-formed HTML.");
 }
 
-  
 
 function generateUniqueId() {
     const timestamp = Date.now();
@@ -180,16 +179,6 @@ const handleSubmit = async (e) => {
         })
     })
 
-    const customPolicy = {
-      ALLOWED_TAGS: ['a', 'p', 'h2', 'ul', 'li', 'img',],
-      ALLOWED_ATTR: ['href', 'target', 'src', 'alt', 'class'],
-      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
-      ADD_ATTR: [['target', '_blank']],
-    };
-
-    function sanitizeHTML(html) {
-      return DOMPurify.sanitize(html, { ADD_TAGS: ['a'], ADD_ATTR: ['target'], ...customPolicy });
-    }
 
     clearInterval(loadInterval);
     messageDiv.innerHTML = '';
