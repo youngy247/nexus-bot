@@ -1,5 +1,5 @@
 import express from 'express';
-import rateLimit from 'express-rate-limit';
+import limiter from './src/middlewares/rateLimiter.js'
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
@@ -22,16 +22,6 @@ app.use(express.json());
 
 app.set('trust proxy', 4)
 
-
- // Create a rate limiter
- const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 10, // 10 requests per minute
-  keyGenerator: (req) => req.ip,
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  message: 'Please do not spam me'
-});
 
 // Apply the rate limiter to all routes except the cron job route
 app.use((req, res, next) => {
