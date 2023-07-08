@@ -1,4 +1,3 @@
-// cronJob.js
 import cronjob from 'node-cron';
 import fetch from 'node-fetch';
 
@@ -19,4 +18,3 @@ cronjob.schedule('*/10 * * * *', () => {
         console.log('Error executing cron job:', error.message);
       });
   });
-
