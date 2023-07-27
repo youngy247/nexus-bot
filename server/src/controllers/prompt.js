@@ -36,8 +36,14 @@ const promptHandler = async (req, res) => {
       {
         name: '3D Portfolio',
         description: "Interactive website to showcase Adam's skills using React and Three.js",
-        liveLink: 'https://adamyoung.netlify.app/',
+        liveLink: 'https://adamyoungdev.com/',
         sourceCodeLink: 'https://github.com/youngy247/3d-portfolio',
+      },
+      {
+        name: 'Insect Inspect',
+        description: "An Ionic and Capacitor cross-platform app leveraging Google Maps and the iNaturalist API for recording, sharing, and exploring global biodiversity with Firebase handling data, fostering global community involvement in animal, and plant conservation.",
+        liveLink: 'https://insectinspect.netlify.app/',
+        sourceCodeLink: 'https://github.com/youngy247/ionic-capacitor-tutorial',
       },
     ]
 
