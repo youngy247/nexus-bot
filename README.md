@@ -1,6 +1,6 @@
 # Personal Assistant Chat Bot
 
-Welcome to the Personal Assistant Chat Bot project! This chat bot is an AI-powered virtual assistant that can help you with a wide range of tasks and queries. It has been developed using JavaScript on the client-side and Node.js with Express.js on the server-side. By integrating with the OpenAI API, this chat bot provides intelligent responses and engages in meaningful conversations.
+Welcome to the Personal Assistant Chat Bot project! This chat bot is an AI-powered virtual assistant that is aimed to help me get a job as a software developer. It has been developed using JavaScript on the client-side and Node.js with Express.js on the server-side. By integrating with the OpenAI API, this chat bot provides intelligent responses and engages in meaningful conversations.
 
 ## Features
 
