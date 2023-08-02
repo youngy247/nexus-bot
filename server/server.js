@@ -3,6 +3,7 @@ import limiter from './src/middlewares/rateLimiter.js';
 import cors from 'cors';
 import routes from './src/routes/routes.js';
 import promptHandler from './src/controllers/prompt.js';
+import cronJob from './src/cron/cronJob.js';
 
 
 const app = express();
