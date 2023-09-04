@@ -1,103 +1,103 @@
-import openai from '../helpers/openai.js'
+import openai from "../helpers/openai.js";
 
 const promptHandler = async (req, res) => {
   try {
-    const userPrompt = req.body.prompt
+    const userPrompt = req.body.prompt;
 
     // Check if the user prompt mentions
-    const isAboutAdam = userPrompt.toLowerCase().includes("adam")
-    const isAboutSkills = userPrompt.toLowerCase().includes("skills")
-    const isAboutBootcamp = userPrompt.toLowerCase().includes("bootcamp")
-    const isAboutProjects =  userPrompt.toLowerCase().includes("projects")
-    const isAboutHobbies = userPrompt.toLowerCase().includes("hobbies")
-    const isAboutPicture = userPrompt.toLowerCase().includes("picture")
-    const isAboutSampleQuestions = userPrompt.toLowerCase().includes("sample")
+    const isAboutAdam = userPrompt.toLowerCase().includes("adam");
+    const isAboutSkills = userPrompt.toLowerCase().includes("skills");
+    const isAboutBootcamp = userPrompt.toLowerCase().includes("bootcamp");
+    const isAboutProjects = userPrompt.toLowerCase().includes("projects");
+    const isAboutHobbies = userPrompt.toLowerCase().includes("hobbies");
+    const isAboutPicture = userPrompt.toLowerCase().includes("picture");
+    const isAboutSampleQuestions = userPrompt.toLowerCase().includes("sample");
 
     // Projects object and formatting html
     const projects = [
       {
-        name: 'Wordle Clone',
-        description: 'Responsive wordle game in vanilla JavaScript',
-        liveLink: 'https://23-mar-wordgame.dev.io-academy.uk/',
-        sourceCodeLink: 'https://github.com/iO-Academy/2023-mar-wordle',
+        name: "Wordle Clone",
+        description: "Responsive wordle game in vanilla JavaScript",
+        liveLink: "https://23-mar-wordgame.dev.io-academy.uk/",
+        sourceCodeLink: "https://github.com/iO-Academy/2023-mar-wordle",
       },
       {
-        name: 'Job Search React App',
-        description: 'A web application for users in their job search journey',
-        liveLink: 'https://23-mar-icantbelieveitsnotmonster.netlify.app/',
-        sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotmonster',
+        name: "Job Search React App",
+        description: "A web application for users in their job search journey",
+        sourceCodeLink:
+          "https://github.com/iO-Academy/23-mar-icantbelieveitsnotmonster",
       },
       {
-        name: 'Music Player API',
-        description: 'A REST API built in PHP for a pre-existing Music Player front-end.',
-        liveLink: 'https://23-mar-icantbelieveitsnotspotify.netlify.app/',
-        sourceCodeLink: 'https://github.com/iO-Academy/23-mar-icantbelieveitsnotspotify',
+        name: "Music Player API",
+        description:
+          "A REST API built in PHP for a pre-existing Music Player front-end.",
+        sourceCodeLink:
+          "https://github.com/iO-Academy/23-mar-icantbelieveitsnotspotify",
       },
       {
-        name: '3D Portfolio',
-        description: "Interactive website to showcase Adam's skills using React and Three.js",
-        liveLink: 'https://adamyoungdev.com/',
-        sourceCodeLink: 'https://github.com/youngy247/3d-portfolio',
+        name: "3D Portfolio",
+        description:
+          "Interactive website to showcase Adam's skills using React and Three.js",
+        liveLink: "https://adamyoungdev.com/",
+        sourceCodeLink: "https://github.com/youngy247/3d-portfolio",
       },
       {
-        name: 'Insect Inspect',
-        description: "An Ionic and Capacitor cross-platform app leveraging Google Maps and the iNaturalist API for recording, sharing, and exploring global biodiversity with Firebase handling data, fostering global community involvement in animal, and plant conservation.",
-        liveLink: 'https://insectinspect.netlify.app/',
-        sourceCodeLink: 'https://github.com/youngy247/ionic-capacitor-tutorial',
+        name: "Insect Inspect",
+        description:
+          "An Ionic and Capacitor cross-platform app leveraging Google Maps and the iNaturalist API for recording, sharing, and exploring global biodiversity with Firebase handling data, fostering global community involvement in animal, and plant conservation.",
+        liveLink: "https://insectinspect.netlify.app/",
+        sourceCodeLink: "https://github.com/youngy247/ionic-capacitor-tutorial",
       },
       {
-        name: 'Chain Detective',
-        description: "Led mobile app development and contributed to the web app and AI-backed backend for an analytics platform",
-        liveLink: 'https://chain-detective.com',
+        name: "Chain Detective",
+        description:
+          "Led mobile app development and contributed to the web app and AI-backed backend for an analytics platform",
+        liveLink: "https://chain-detective.com",
       },
-    ]
+    ];
 
-    projects.forEach(project => {
-        if (project.liveLink) {
-          project.liveLink = `<a href="${project.liveLink}" target="_blank">${project.liveLink}</a>`
-        }
-        if (project.sourceCodeLink) {
-          project.sourceCodeLink = `<a href="${project.sourceCodeLink}" target="_blank">${project.sourceCodeLink}</a>`
-        }
-      })
+    projects.forEach((project) => {
+      if (project.liveLink) {
+        project.liveLink = `<a href="${project.liveLink}" target="_blank">${project.liveLink}</a>`;
+      }
+      if (project.sourceCodeLink) {
+        project.sourceCodeLink = `<a href="${project.sourceCodeLink}" target="_blank">${project.sourceCodeLink}</a>`;
+      }
+    });
 
+    const projectList = projects
+      .map(
+        (project) =>
+          ` \n${project.name}: ${project.description}\n  - Live link: ${
+            project.liveLink || "N/A"
+          }\n  - Source code: ${project.sourceCodeLink || "N/A"}`
+      )
+      .join("\n\n");
 
-      const projectList = projects
-            .map(
-            project =>
-            ` \n${project.name}: ${project.description}\n  - Live link: ${project.liveLink || 'N/A'}\n  - Source code: ${project.sourceCodeLink || 'N/A'}`
-        )
-        .join('\n\n')
+    const adamPicture = ` \n<img src="grad-pic.jpeg" alt="Adam's graduation picture" class="grad-pic"/>`;
 
-        const adamPicture = ` \n<img src="grad-pic.jpeg" alt="Adam's graduation picture" class="grad-pic"/>`
-
-    let response
+    let response;
     if (userPrompt === "") {
       // Greet the user when there is no user prompt
       return res.send({
         bot: "Hi there! How can I help you?",
-        suggestions: [
-          "Provide a list of sample questions to ask about Adam", 
-        ]
-      })
-    } else if (isAboutSkills && isAboutAdam){
+        suggestions: ["Provide a list of sample questions to ask about Adam"],
+      });
+    } else if (isAboutSkills && isAboutAdam) {
       return res.send({
-        bot: 
-`Adam is proficient in PHP, JavaScript, React, ExpressJS, Node.js, and Tailwind, with hands-on experience in developing web applications, creating RESTful APIs, and implementing responsive UI designs. Adam demonstrates proficiency in hosting technologies such as Netlify, Render, and Azure, enabling him to effectively deploy and manage web applications.
+        bot: `Adam is proficient in PHP, JavaScript, React, ExpressJS, Node.js, and Tailwind, with hands-on experience in developing web applications, creating RESTful APIs, and implementing responsive UI designs. Adam demonstrates proficiency in hosting technologies such as Netlify, Render, and Azure, enabling him to effectively deploy and manage web applications.
 
 To ensure stability and quality, Adam utilizes industry-standard testing frameworks like PHPUnit and Jest. This allows him to conduct thorough testing, ensuring the reliability and robustness of his software solutions.
 
 With experience working with Cloudflare CDN and a comprehensive skill set, Adam excels in delivering high-quality and performant web applications.`,
-suggestions: [
-"Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
-"What projects has Adam has done so far?",
-"What are Adam's hobbies and interests outside of software development?",
-"Can you provide a picture of Adam Young?",
-],
-      })
-    }
-    
-    else if (isAboutProjects && isAboutAdam){
+        suggestions: [
+          "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
+          "What projects has Adam has done so far?",
+          "What are Adam's hobbies and interests outside of software development?",
+          "Can you provide a picture of Adam Young?",
+        ],
+      });
+    } else if (isAboutProjects && isAboutAdam) {
       return res.send({
         bot: `<h2>Here is a selection of Adam's projects that he has worked on:</h2> ${projectList}`,
         suggestions: [
@@ -106,9 +106,8 @@ suggestions: [
           "What are Adam's hobbies and interests outside of software development?",
           "Can you provide a picture of Adam Young?",
         ],
-      })
-    } 
-    else if (isAboutHobbies && isAboutAdam){
+      });
+    } else if (isAboutHobbies && isAboutAdam) {
       return res.send({
         bot: `Outside of software development Adam enjoys playing chess to stimulate his strategic thinking. He keeps physically fit by regularly training in the gym, he likes to play rugby and achieved his Wales Rugby League U19 cap at the age of 16. Adam's passion for continuous learning drives him to stay updated with the latest trends and technologies in the software development field.`,
         suggestions: [
@@ -117,10 +116,8 @@ suggestions: [
           "What projects has Adam has done so far?",
           "Can you provide a picture of Adam Young?",
         ],
-      })
-    }
-    
-    else if (isAboutPicture && isAboutAdam){
+      });
+    } else if (isAboutPicture && isAboutAdam) {
       return res.send({
         bot: `<h2>Here is a picture of Adam from his graduation day:</h2> ${adamPicture}`,
         suggestions: [
@@ -128,9 +125,9 @@ suggestions: [
           "What projects has Adam has done so far?",
           "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
           "What are Adam's hobbies and interests outside of software development?",
-      ],
-      })
-    } else if (isAboutBootcamp && isAboutAdam){
+        ],
+      });
+    } else if (isAboutBootcamp && isAboutAdam) {
       return res.send({
         bot: `Adam Young recently graduated from the Full Stack Track course at iO Academy. Throughout his journey, Adam had the opportunity to collaborate and work closely with a diverse team of 8 developers, forming a cohesive SCRUM team that worked together on various projects to meet the product owner's requirements. He earned his agile professional certification and honed his problem-solving and analytical skills during his time there.`,
         suggestions: [
@@ -138,11 +135,9 @@ suggestions: [
           "What projects has Adam has done so far?",
           "What are Adam's hobbies and interests outside of software development?",
           "Can you provide a picture of Adam Young?",
-      ],
-      })
-    }
-    
-    else if (isAboutSampleQuestions && isAboutAdam){
+        ],
+      });
+    } else if (isAboutSampleQuestions && isAboutAdam) {
       return res.send({
         bot: `Sample questions about Adam Young: 
 
@@ -152,25 +147,20 @@ suggestions: [
 4) What are Adam's hobbies and interests outside of software development?
 5) Can you provide a picture of Adam Young?
       `,
-              suggestions: [
-                "What are Adam's skills and technologies expertise?",
-                "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
-                "What projects has Adam has done so far?",
-                "What are Adam's hobbies and interests outside of software development?",
-                "Can you provide a picture of Adam Young?",
-            ],
-      })
-    }
-    
-    else if (!isAboutAdam) {
+        suggestions: [
+          "What are Adam's skills and technologies expertise?",
+          "Can you provide details about Adam Young's experience at iO Academy's Full Stack Track bootcamp?",
+          "What projects has Adam has done so far?",
+          "What are Adam's hobbies and interests outside of software development?",
+          "Can you provide a picture of Adam Young?",
+        ],
+      });
+    } else if (!isAboutAdam) {
       return res.send({
         bot: "I'm the assistant for Adam Young, and I can only answer questions about Adam. Please include his first name in your question or you can use the suggestion buttons below.",
-        suggestions: [
-          "Provide a list of sample questions to ask about Adam", 
-        ],
-      })
+        suggestions: ["Provide a list of sample questions to ask about Adam"],
+      });
     } else {
-
       const prompt = `You are a world-class assistant and question answerer for Adam Young.
             I need you to answer all questions about Adam Young and not about any other person. Here is some information about Adam Young to help answer the question that you get given, first scan through the information after reading the user prompt and give only relevant information:
 
@@ -207,7 +197,7 @@ suggestions: [
 
             If the user's question is not relevant to Adam answer the question then remind them it is not relevant to Adam.
 
-            Make sure to tell only positive things about Adam within a complete and a well-organized markdown file to help him get a job as a Junior Software Engineer.`
+            Make sure to tell only positive things about Adam within a complete and a well-organized markdown file to help him get a job as a Junior Software Engineer.`;
 
       response = await openai.createCompletion({
         model: "text-davinci-003",
@@ -217,20 +207,18 @@ suggestions: [
         top_p: 1,
         frequency_penalty: 0.5,
         presence_penalty: 0.4,
-      })
+      });
     }
-  
-  const formattedResponse = response.data.choices[0].text
+
+    const formattedResponse = response.data.choices[0].text;
 
     res.status(200).send({
       bot: formattedResponse,
-      suggestions: [
-        "Provide a list of sample questions to ask about Adam", 
-      ],
-    })
+      suggestions: ["Provide a list of sample questions to ask about Adam"],
+    });
   } catch (error) {
-    res.status(500).send({ error })
+    res.status(500).send({ error });
   }
-}
+};
 
-export default promptHandler
+export default promptHandler;
