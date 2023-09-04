@@ -45,6 +45,11 @@ const promptHandler = async (req, res) => {
         liveLink: 'https://insectinspect.netlify.app/',
         sourceCodeLink: 'https://github.com/youngy247/ionic-capacitor-tutorial',
       },
+      {
+        name: 'Chain Detective',
+        description: "Led mobile app development and contributed to the web app and AI-backed backend for an analytics platform",
+        liveLink: 'https://chain-detective.com',
+      },
     ]
 
     projects.forEach(project => {
